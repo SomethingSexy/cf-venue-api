@@ -5,7 +5,7 @@
 // });
 
 
-import config from'../config/environment';
+import config from'./config/environment';
 import morgan from 'koa-morgan';
 import bodyparser from 'koa-bodyparser';
 import routes from './routes';
