@@ -80,7 +80,8 @@ const promiseRequest = (url, method) => {
         result += chunk;
       });
       res.on('end', () => {
-        resolve(result);
+        const jsonResult = extractData(result);
+        resolve(jsonResult);
       });
     });
     request.on('error', (error) => {

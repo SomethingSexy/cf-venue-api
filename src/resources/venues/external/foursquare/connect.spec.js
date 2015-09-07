@@ -42,11 +42,11 @@ describe('Connection post', () => {
 
 
 describe('Connection get venue', () => {
-  it('should return venue information', (done) => {
+  it('should return venue information', () => {
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
     connect.get('venues/4b474e04f964a520782e26e3');
 
-    return connect.start().should.eventually.to.be.a('string').notify(done);
+    return connect.start().should.eventually.have.property('venue');
   });
 });
