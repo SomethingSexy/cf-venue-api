@@ -47,6 +47,6 @@ describe('Connection get venue', () => {
 
     connect.get('venues/4b474e04f964a520782e26e3');
 
-    return connect.start().should.eventually.have.property('meta').notify(done);
+    return connect.start().should.eventually.to.be.a('string').notify(done);
   });
 });
