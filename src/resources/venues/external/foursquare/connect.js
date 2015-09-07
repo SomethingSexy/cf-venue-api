@@ -62,8 +62,9 @@ const promiseRequest = (url, method) => {
       parsedUrl.query = {};
     }
     const path = parsedUrl.pathname + '?' + qs.stringify(parsedUrl.query);
-    logger.debug('retrieve: Request path: ' + path);
-    const locale = config.locale || 'en';
+    console.log('retrieve: Request path: ' + path);
+    // const locale = config.locale || 'en';
+    const locale = 'en';
 
     const request = https.request({
       host: parsedUrl.hostname,
@@ -106,7 +107,7 @@ class FoursquareConnection {
   }
 
   post() {
-
+    throw new Error('Not implemented yet!');
   }
 
   get(path, params) {
@@ -118,7 +119,7 @@ class FoursquareConnection {
       url += '?' + qs.stringify(processedParams);
     }
 
-    this._addRequest(url, method);
+    this._addRequest(url, 'GET');
   }
 
   start() {
@@ -140,8 +141,8 @@ class FoursquareConnection {
     if (this.accessToken) {
       localParams.oauth_token = this.accessToken;
     } else {
-      localParams.clientId = this.clientId;
-      localParams.clientSecret = this.clientSecret;
+      localParams.client_id = this.clientId;
+      localParams.client_secret = this.clientSecret;
     }
 
     localParams.v = this.version;
