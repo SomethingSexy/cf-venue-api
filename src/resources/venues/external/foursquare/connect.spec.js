@@ -49,4 +49,12 @@ describe('Connection get venue', () => {
 
     return connect.start().should.eventually.have.property('venue');
   });
+
+  it('should fail with bad request', () => {
+    const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
+
+    connect.get('venues/balls');
+
+    return connect.start().should.eventually.to.be.rejectedWith();
+  });
 });

@@ -8,21 +8,12 @@ const extractData = (result) => {
   let json;
 
   if (result !== undefined) {
-    try {
-      json = JSON.parse(result);
-    } catch(e) {
-      return;
-    }
+    json = JSON.parse(result);
 
     if (json.meta && json.meta.code === 200) {
       if (json.meta.errorType) {
-        console.log('extractData: Warning level set to ' + config.foursquare.warnings);
         if (config.foursquare.warnings === 'ERROR') {
-          console.log(message);
           throw new Error(message);
-          return;
-        } else {
-          console.log(message);
         }
       }
       if (json.response !== undefined) {
@@ -31,16 +22,11 @@ const extractData = (result) => {
         return {};
       }
     } else if (json.meta) {
-      console.log('JSON Response had unexpected code: \'' + json.meta.code + ': ' + json.meta.errorDetail + '\'');
       throw new Error(json.meta.code + ': ' + json.meta.errorDetail);
     } else {
-      console.log('Response had no code: ' + util.inspect(json));
       throw new Error('Response had no code: ' + util.inspect(json));
     }
   } else {
-    console.log(
-      'There was an unexpected, fatal error calling Foursquare: the response was undefined or had no status code.'
-    );
     throw new Error('Foursquare had no response or status code.');
   }
 };
@@ -80,7 +66,13 @@ const promiseRequest = (url, method) => {
         result += chunk;
       });
       res.on('end', () => {
-        const jsonResult = extractData(result);
+        let jsonResult;
+        try {
+          jsonResult = extractData(result);
+        } catch(e) {
+          reject(e.message);
+        }
+
         resolve(jsonResult);
       });
     });
