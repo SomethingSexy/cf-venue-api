@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import FoursquareConnection from './connect';
 import config from 'config';
+import nock from 'nock';
 
 chai.should();
 
@@ -43,6 +44,18 @@ describe('Connection post', () => {
 
 describe('Connection get venue', () => {
   it('should return venue information', (done) => {
+    nock(config.get('venues.api.foursquare.url'))
+      .get('/venues/4b474e04f964a520782e26e3')
+      .query(true)
+      .reply(200, {
+        meta: {
+          code: 200,
+          requestId: '55edf2fc498e5dbb1744cccd'
+        },
+        response: {
+          venue: {}
+        }
+      });
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
     connect.get('venues/4b474e04f964a520782e26e3');
@@ -55,6 +68,18 @@ describe('Connection get venue', () => {
   });
 
   it('should fail with bad request', () => {
+    nock(config.get('venues.api.foursquare.url'))
+      .get('/venues/balls')
+      .query(true)
+      .reply(200, {
+        meta: {
+          code: 400,
+          errorType: 'param_error',
+          errorDetail: 'Value balls is invalid for venue id',
+          requestId: '55f0c539498ef84230c00407'
+        },
+        response: {}
+      });
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
     connect.get('venues/balls');
@@ -63,6 +88,18 @@ describe('Connection get venue', () => {
   });
 
   it('should reset after start', (done) => {
+    nock(config.get('venues.api.foursquare.url'))
+      .get('/venues/4b474e04f964a520782e26e3')
+      .query(true)
+      .reply(200, {
+        meta: {
+          code: 200,
+          requestId: '55edf2fc498e5dbb1744cccd'
+        },
+        response: {
+          venue: {}
+        }
+      });
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
     connect.get('venues/4b474e04f964a520782e26e3');
