@@ -4,4 +4,6 @@
 require('babel/register')({
   ignore: false
 });
-require('./src/app');
+const app = require('./src/app');
+
+module.exports = app;

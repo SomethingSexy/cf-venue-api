@@ -31,10 +31,6 @@ const extractData = (result) => {
   }
 };
 
-// new Rquest({}).post().start().then();
-// new Require().config().config().post().start().then();
-// new Request().post().get().start().then();
-
 const promiseRequest = (url, method) => {
   return Q.Promise((resolve, reject) => { // eslint-disable-line new-cap
     const parsedUrl = urlParser.parse(url, true);
@@ -48,7 +44,6 @@ const promiseRequest = (url, method) => {
       parsedUrl.query = {};
     }
     const path = parsedUrl.pathname + '?' + qs.stringify(parsedUrl.query);
-    console.log('retrieve: Request path: ' + path);
     // const locale = config.locale || 'en';
     const locale = 'en';
 
@@ -115,8 +110,18 @@ class FoursquareConnection {
     this._addRequest(url, 'GET');
   }
 
-  start() {
-    return this.requests.reduce(Q.when, Q({})); // eslint-disable-line new-cap
+  start(reset = false) {
+    return this.requests.reduce(Q.when, Q({})).then((data) => {  // eslint-disable-line new-cap
+      if (reset) {
+        this.reset();
+      }
+
+      return data;
+    });
+  }
+
+  reset() {
+    this.requests = [];
   }
 
   _processParams(params) {

@@ -4,7 +4,6 @@
 import {index, venue, create, update} from './controller';
 import routesExternal from './external/routes';
 import Router from 'koa-router';
-import mount from 'koa-mount';
 
 const router = new Router();
 
@@ -14,7 +13,7 @@ export default (app) => {
   router.post('/', create);
   router.put('/id', update);
 
-  router.use(mount('/external', routesExternal(app)));
+  router.use('/external', routesExternal(app));
 
   return router.routes();
 };
