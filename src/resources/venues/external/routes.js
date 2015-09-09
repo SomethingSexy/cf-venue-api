@@ -8,7 +8,7 @@ const router = new Router();
 
 export default (app) => {
   router.get('/', index);
-  router.get('/:id', venue);
+  router.get('/:vid', venue);
 
   return router.routes();
 };

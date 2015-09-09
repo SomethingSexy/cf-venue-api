@@ -42,12 +42,16 @@ describe('Connection post', () => {
 
 
 describe('Connection get venue', () => {
-  it('should return venue information', () => {
+  it('should return venue information', (done) => {
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
     connect.get('venues/4b474e04f964a520782e26e3');
 
-    return connect.start().should.eventually.have.property('venue');
+    connect.start().then((data) => {
+      expect(data).to.have.property('venue');
+      expect(connect.requests).to.have.length(1);
+      done();
+    });
   });
 
   it('should fail with bad request', () => {
@@ -56,5 +60,16 @@ describe('Connection get venue', () => {
     connect.get('venues/balls');
 
     return connect.start().should.eventually.to.be.rejectedWith();
+  });
+
+  it('should reset after start', (done) => {
+    const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
+
+    connect.get('venues/4b474e04f964a520782e26e3');
+
+    connect.start(true).then(() => {
+      expect(connect.requests).to.have.length(0);
+      done();
+    });
   });
 });

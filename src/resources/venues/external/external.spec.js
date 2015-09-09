@@ -8,6 +8,7 @@ chai.use(chaiAsPromised);
 
 const request = supertest.agent(app.listen());
 const expect = chai.expect;
+const assert = chai.assert;
 
 describe('GET /venues', () => {
   it('should respond with 200 type Array', (done) => {
@@ -25,7 +26,7 @@ describe('GET /venue', () => {
     request
       .get('/venues/external/4b474e04f964a520782e26e3')
       .expect(200, (err, res) => {
-        expect(Array.isArray(res.body)).to.be.true;
+        assert.typeOf(res.body, 'object');
         done();
       });
   });

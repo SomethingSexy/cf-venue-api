@@ -108,6 +108,8 @@ class FoursquareConnection {
     }
 
     this._addRequest(url, 'GET');
+
+    return this;
   }
 
   start(reset = false) {
@@ -122,6 +124,7 @@ class FoursquareConnection {
 
   reset() {
     this.requests = [];
+    return this;
   }
 
   _processParams(params) {
