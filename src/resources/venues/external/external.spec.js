@@ -2,6 +2,7 @@ import app from '../../../app';
 import supertest from 'supertest';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import nock from 'nock';
 
 chai.should();
 chai.use(chaiAsPromised);
