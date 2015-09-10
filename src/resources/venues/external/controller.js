@@ -1,4 +1,4 @@
-import FoursquareConnection from './foursquare/connect';
+import FoursquareConnection from 'src/models/external/foursquare/connect';
 import config from 'config';
 
 const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));

@@ -1,26 +1,37 @@
 // Get all venues
 export function* index(next) {
-	console.log('venues index');
   this.status = 200;
   this.body = [];
+  yield next;
 }
 
 // Get a single job
 export function* venue(next) {
-	console.log('venues venue');
   this.status = 200;
   this.body = [];
+  yield next;
 }
 
-export function* create(next) {
-	console.log('venues create');
+// This will create a new venue in our database
+// either from foursquare data or manually
+export function *create(next) {
+  const postData = this.request.body;
+  // if external data request
+  if (postData.external) {
+    if ((!postData.externalId || !postData.externalSrc)){
+      this.status = 422;
+      this.body = {};
+      return;
+    }
+  }
+
   this.status = 200;
-  this.body = [];
+  this.body = {};
 }
 
 export function* update(next) {
-	console.log('venues update');
   this.status = 200;
   this.body = [];
+  yield next;
 }
 
