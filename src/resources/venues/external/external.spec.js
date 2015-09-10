@@ -23,6 +23,18 @@ describe('GET /venues', () => {
 
 describe('GET /venue', () => {
   it('should respond with 200 type Array', (done) => {
+    nock(config.get('venues.api.foursquare.url'))
+      .get('/venues/4b474e04f964a520782e26e3')
+      .query(true)
+      .reply(200, {
+        meta: {
+          code: 200,
+          requestId: '55edf2fc498e5dbb1744cccd'
+        },
+        response: {
+          venue: {}
+        }
+      });
     request
       .get('/venues/external/4b474e04f964a520782e26e3')
       .expect(200, (err, res) => {
