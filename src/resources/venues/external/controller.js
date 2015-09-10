@@ -8,7 +8,7 @@ export function* index(next) {
 }
 
 export function* venue(next) {
-  const result = yield getVenue('4b474e04f964a520782e26e3');
+  const result = yield getVenue(this.params.id);
   if (result) {
     this.status = 200;
     this.body = result;

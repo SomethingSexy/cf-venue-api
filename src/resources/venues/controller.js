@@ -1,3 +1,5 @@
+import {getVenue as getFoursquareVenue} from 'src/models/external/foursquare/venue';
+
 // Get all venues
 export function* index(next) {
   this.status = 200;
@@ -23,10 +25,13 @@ export function *create(next) {
       this.body = {};
       return;
     }
+    const externalData = yield getFoursquareVenue(postData.externalId);
+    this.status = 200;
+    this.body = externalData;
+  } else {
+    this.status = 200;
+    this.body = {};
   }
-
-  this.status = 200;
-  this.body = {};
 }
 
 export function* update(next) {
