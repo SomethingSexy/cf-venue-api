@@ -1,0 +1,12 @@
+{
+  "venues": {
+    "api" : {
+    	"foursquare" : {
+        "clientId": "",
+        "clientSecret": "",
+        "url" : "https://api.foursquare.com/v2/",
+        "version": "20150901"
+    	}
+    }
+  }
+}
