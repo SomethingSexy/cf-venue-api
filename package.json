@@ -4,8 +4,8 @@
   "private": true,
   "main": "",
   "scripts": {
-    "start": "node --harmony runner.js",
-    "test": "set NODE_ENV=test && mocha --compilers js:babel/register ./src/**/*.spec.js"
+    "start": "set NODE_ENV=dev&& node --harmony runner.js",
+    "test": "set NODE_ENV=test&& mocha --compilers js:babel/register ./src/**/*.spec.js"
   },
   "dependencies": {
     "cookie": "v0.1.3",
