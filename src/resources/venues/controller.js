@@ -18,7 +18,7 @@ export function *create(next) {
   const postData = this.request.body;
   // if external data request
   if (postData.external) {
-    if ((!postData.externalId || !postData.externalSrc)){
+    if ((!postData.externalId || !postData.externalSrc)) {
       this.status = 422;
       this.body = {};
       return;

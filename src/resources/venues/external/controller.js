@@ -1,18 +1,14 @@
-import FoursquareConnection from 'src/models/external/foursquare/connect';
-import config from 'config';
-
-const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
+import {getVenue} from 'src/models/external/foursquare/venue';
 
 // External search from foursquare (most likely)
-const index = function *(next) {
-  console.log('external index');
+export function* index(next) {
   this.status = 200;
   this.body = [];
   yield next;
-};
+}
 
-const venue = function *(next) {
-  const result = yield connect.get('venues/4b474e04f964a520782e26e3').start(true);
+export function* venue(next) {
+  const result = yield getVenue('4b474e04f964a520782e26e3');
   if (result) {
     this.status = 200;
     this.body = result;
@@ -20,8 +16,4 @@ const venue = function *(next) {
     this.status = 500;
   }
   yield next;
-};
-
-export {index as index};
-
-export {venue as venue};
+}
