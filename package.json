@@ -4,9 +4,9 @@
   "private": true,
   "main": "",
   "scripts": {
-    "start": "set NODE_ENV=dev&& node --harmony runner.js",
-    "test": "set NODE_ENV=test&& mocha --compilers js:babel/register ./src/**/*.spec.js",
-    "test-local": "set NODE_ENV=dev&& mocha --compilers js:babel/register ./src/**/*.spec.local.js"
+    "start": "set NODE_ENV=dev&& set NODE_PATH=.&& node --harmony runner.js",
+    "test": "set NODE_ENV=test&& set NODE_PATH=.&& mocha --compilers js:babel/register ./src/**/*.spec.js",
+    "test-local": "set NODE_ENV=dev&& set NODE_PATH=.&& mocha --compilers js:babel/register ./src/**/*.spec.local.js"
   },
   "dependencies": {
     "cookie": "v0.1.3",

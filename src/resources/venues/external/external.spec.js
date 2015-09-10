@@ -1,4 +1,4 @@
-import app from '../../../app';
+import app from 'src/app';
 import supertest from 'supertest';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
