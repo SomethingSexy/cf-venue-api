@@ -6,7 +6,7 @@
   "scripts": {
     "start": "set NODE_ENV=dev&& set NODE_PATH=.&& node --harmony runner.js",
     "test": "export NODE_ENV=test&& export NODE_PATH=.&& mocha --compilers js:babel/register ./src/**/*.spec.js",
-    "test-local": "set NODE_ENV=dev&& set NODE_PATH=.&& mocha --compilers js:babel/register ./src/**/*.spec.local.js"
+    "test-local": "set NODE_ENV=dev&& set NODE_PATH=.&& mocha --compilers js:babel/register ./src/**/*.spec.local.js ./src/**/*.spec.js"
   },
   "dependencies": {
     "cookie": "v0.1.3",

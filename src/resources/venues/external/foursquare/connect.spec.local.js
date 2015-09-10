@@ -12,7 +12,7 @@ chai.use(chaiAsPromised);
 
 const expect = chai.expect;
 
-describe('Connection create', () => {
+describe('Live Connection create', () => {
   it('should contain empty array', () => {
     const connect = new FoursquareConnection();
     expect(connect.requests).to.be.array;
@@ -36,14 +36,14 @@ describe('Connection create', () => {
   });
 });
 
-describe('Connection post', () => {
+describe('Live Connection post', () => {
   it('should error as not implemented', () => {
     expect(new FoursquareConnection().post).to.throw('Not implemented yet!');
   });
 });
 
 
-describe('Connection get venue', () => {
+describe('Live Connection get venue', () => {
   it('should return venue information', (done) => {
     const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
 
