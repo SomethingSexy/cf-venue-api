@@ -11,6 +11,8 @@ const router = new Router();
 export default (app) => {
   router.get('/', index);
   router.get('/:id', venue);
+
+  // TODO: Might not expose this one now
   router.post('/', create);
   router.put('/id', update);
 

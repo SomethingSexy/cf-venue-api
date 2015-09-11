@@ -75,3 +75,23 @@ describe('Live Connection get venue', () => {
     });
   });
 });
+
+describe('Live Connection get venues', () => {
+  it('should venues given lat lng', (done) => {
+    const connect = new FoursquareConnection(config.get('venues.api.foursquare.url'), {clientId: config.get('venues.api.foursquare.clientId'), clientSecret: config.get('venues.api.foursquare.clientSecret')}, config.get('venues.api.foursquare.version'));
+
+    connect.get('venues/search', {
+      lat: 40.7,
+      lng: -74,
+      radius: 16000,
+      intent: 'browse'
+    });
+
+    connect.start().then((data) => {
+      expect(data).to.have.property('venues').with.length;
+      done();
+    }).catch((error) => {
+
+    });
+  });
+});

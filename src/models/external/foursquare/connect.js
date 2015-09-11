@@ -17,6 +17,7 @@ const extractData = (result) => {
         }
       }
       if (json.response !== undefined) {
+
         return json.response;
       } else {
         return {};
@@ -107,6 +108,8 @@ class FoursquareConnection {
       url += '?' + qs.stringify(processedParams);
     }
 
+    console.log(url);
+
     this._addRequest(url, 'GET');
 
     return this;
@@ -130,15 +133,12 @@ class FoursquareConnection {
   _processParams(params) {
     const localParams = params || {};
 
-    if ((localParams.lat && !localParams.lng) || (!localParams.lat && localParams.lng)) {
-      throw new Error('callApi:parameters: if you specify a longitude or latitude, you must include BOTH.');
-    }
-
     if (localParams.lat && localParams.lng) {
       localParams.ll = localParams.lat + ',' + localParams.lng;
       delete localParams.lat;
       delete localParams.lng;
     }
+
     if (this.accessToken) {
       localParams.oauth_token = this.accessToken;
     } else {

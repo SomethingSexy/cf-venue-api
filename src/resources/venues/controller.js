@@ -27,6 +27,8 @@ export function *create(next) {
     }
     const externalData = yield getFoursquareVenue(postData.externalId);
     this.status = 200;
+    // most likely won't return this full data here but 
+    // doing for testing now
     this.body = externalData;
   } else {
     this.status = 200;
