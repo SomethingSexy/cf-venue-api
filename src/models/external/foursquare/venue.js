@@ -31,5 +31,7 @@ export function getVenues(searchParams) {
     searchParams.radius = 16000;
   }
 
-  return connect.get('venues/search', searchParams).start(true);
+  return connect.get('venues/search', searchParams).start(true).then((data) => {
+    return data.venues;
+  });
 }

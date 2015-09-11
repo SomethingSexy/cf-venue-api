@@ -14,10 +14,32 @@ const assert = chai.assert;
 
 describe('GET /venues', () => {
   it('should respond with 200 type Array', (done) => {
+    nock(config.get('venues.api.foursquare.url'))
+      .get('/venues/search')
+      .query(true)
+      .reply(200, {
+        meta: {
+          code: 200,
+          requestId: '55edf2fc498e5dbb1744cccd'
+        },
+        response: {
+          venues: [{name: 'test'}]
+        }
+      });
     request
-      .get('/venues/external')
+      .get('/venues/external?lat=10&lng=10')
+      .query({ lat: 10, lng: 10 })
       .expect(200, (err, res) => {
         expect(Array.isArray(res.body)).to.be.true;
+        done();
+      });
+  });
+  // missing parameters
+  it('should respond with 500', (done) => {
+    request
+      .get('/venues/external')
+      .expect(500, (err, res) => {
+        if (err) return done(err);
         done();
       });
   });
